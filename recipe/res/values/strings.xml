@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Recipe Puppy</string>
+    <string name="hint_ingridients">Ingridients</string>
+    <string name="search">Search</string>
+    <string name="default_search">Ham, Tomato</string>
+    <string name="fragment_info">Recipe Info</string>
+</resources>
