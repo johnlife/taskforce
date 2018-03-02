@@ -1,0 +1,7 @@
+.DS_Store
+*.iml
+libraries/*
+!libraries/LifetoolsNew*
+!libraries/Lifetools Reporter*
+libraries/Lifetools Reporter/web
+!libraries/Lifetools ORM*
