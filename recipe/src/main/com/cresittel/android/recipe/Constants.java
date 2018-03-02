@@ -24,4 +24,5 @@ public interface Constants {
     String PARAM_URL = "url";
     String PARAM_INGREDIENTS = "ingredients";
     String PARAM_THUMB = "thumb";
+    String PARAM_TEST = "test";
 }
