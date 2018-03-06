@@ -41,52 +41,114 @@
                 android:visibility="gone"
                 />
         </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/continentName"
-        android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginTop="@dimen/inset_margin"
+            android:text="@string/continent_name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/grey_text"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/continentName"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="@dimen/inset_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/dark_text"
+            android:textSize="20sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:layout_marginTop="@dimen/inset_margin"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:text="@string/continent_name"
-        android:layout_marginLeft="@dimen/padding"
-        />
-    <TextView
-        android:id="@+id/countryName"
-        android:layout_width="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginTop="@dimen/inset_margin"
+            android:text="@string/country_name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@color/grey_text" />
+
+        <TextView
+            android:id="@+id/countryName"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="@dimen/inset_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@color/dark_text" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:layout_marginTop="@dimen/inset_margin"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:text="@string/country_name"
-        android:layout_marginLeft="@dimen/padding"
-        />
-    <TextView
-        android:id="@+id/subdivisionName"
-        android:layout_width="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginTop="@dimen/inset_margin"
+            android:text="@string/subdivision_name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@color/grey_text" />
+
+        <TextView
+            android:id="@+id/subdivisionName"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="@dimen/inset_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@color/dark_text" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:layout_marginTop="@dimen/inset_margin"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:text="@string/subdivision_name"
-        android:layout_marginLeft="@dimen/padding"
-        />
-    <TextView
-        android:id="@+id/cityName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:layout_marginTop="@dimen/inset_margin"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:text="@string/city_name"
-        android:layout_marginLeft="@dimen/padding"
-        />
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginTop="@dimen/inset_margin"
+            android:text="@string/city_name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@color/grey_text" />
+
+        <TextView
+            android:id="@+id/cityName"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="@dimen/inset_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@color/dark_text" />
+    </LinearLayout>
 
     <com.mapbox.mapboxsdk.maps.MapView
+        android:layout_marginTop="30dp"
         android:id="@+id/mapView"
         android:layout_width="match_parent"
-        android:layout_height="381dp"
+        android:layout_height="match_parent"
         mapbox:mapbox_styleUrl="mapbox://styles/mapbox/streets-v10"
         mapbox:mapbox_uiDoubleTapGestures="false"
         mapbox:mapbox_uiRotateGestures="false"

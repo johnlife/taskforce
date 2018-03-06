@@ -37,19 +37,19 @@ public class CountryInfo extends JsonData {
 
         private String Unkwn = "Unknown";
         public String getContinent_name() {
-            return "Continent Name : " + ((continent_name != null)? continent_name:Unkwn);
+            return (continent_name != null)? continent_name:Unkwn;
         }
 
         public String getCountry_name() {
-            return "Country Name : " + ((country_name != null)? country_name:Unkwn);
+            return (country_name != null)? country_name:Unkwn;
         }
 
         public String getSubdivision_1_name() {
-            return "Subdivision Name : " + ((subdivision_1_name != null)? subdivision_1_name:Unkwn);
+            return (subdivision_1_name != null)? subdivision_1_name:Unkwn;
         }
 
         public String getCity_name() {
-            return "City Name : " + ((city_name != null)? city_name:Unkwn);
+            return (city_name != null)? city_name:Unkwn;
         }
 
         public String getLatitude() {
@@ -61,7 +61,7 @@ public class CountryInfo extends JsonData {
         }
 
         public String getIpv4() {
-            return "IP Address : " + ipv4;
+            return  ipv4;
         }
     }
 }

@@ -69,6 +69,9 @@ public class CountryInfoFragment extends BaseAbstractFragment{
                 requestCountryName(tvIpAddress.getText().toString());
             }
         });
+        String default_ipaddress = getContext().getString(R.string.default_search);
+        tvIpAddress.setText(default_ipaddress);
+        requestCountryName(default_ipaddress);
         return view;
     }
 
@@ -95,12 +98,11 @@ public class CountryInfoFragment extends BaseAbstractFragment{
             double Long = Double.parseDouble(event.getData().getData().getLongitude());
             @Override
             public void onMapReady(MapboxMap mapboxMap) {
-                mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                        new LatLng(Lat, Long),10));
-                for (Marker marker : mapboxMap.getMarkers()
-                     ) {
+                for (Marker marker : mapboxMap.getMarkers()) {
                     mapboxMap.removeMarker(marker);
                 }
+                mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                        new LatLng(Lat, Long),10));
                 mapboxMap.addMarker(new MarkerOptions()
                         .position(new LatLng(Lat, Long))
                         .title(tvCountryName.getText().toString())

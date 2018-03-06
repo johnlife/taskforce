@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">IP2Country</string>
-    <string name="continent_name">Continent Name : </string>
-    <string name="country_name">Country Name : </string>
-    <string name="subdivision_name">Subdivision Name : </string>
-    <string name="city_name">City Name : </string>
+    <string name="continent_name">Continent Name: </string>
+    <string name="country_name">Country Name: </string>
+    <string name="subdivision_name">Subdivision Name: </string>
+    <string name="city_name">City Name: </string>
     <string name="search">Search</string>
     <string name="default_search">114.134.184.52</string>
 </resources>

@@ -36,7 +36,6 @@ public class BackgroundService extends BaseBackgroundService {
         super.onCreate();
         instance = this;
         initializeRestService();
-        requestCountryName("114.134.184.52");
     }
 
     @Override
@@ -83,14 +82,11 @@ public class BackgroundService extends BaseBackgroundService {
                 if (response.isSuccessful()) {
                     CountryInfo data = response.body();
                     if(data.getStatus().equals("success")) {
-                        postData(data);
-                    }
-                    else{
-                        postError();
-                    }
+                        postData(data); }
+                    else {
+                        postError(); }
                 }
-                else
-                {
+                else {
                     postError();
                 }
             }
