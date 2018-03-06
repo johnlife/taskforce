@@ -1,0 +1,110 @@
+apply plugin: 'com.android.application'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.+'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        google()
+        mavenCentral()
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(':..:libraries:LifeToolsNew')
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-jackson:2.3.0'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.mapbox.mapboxsdk:mapbox-android-sdk:5.4.1'
+}
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion '27.0.1'
+
+    def Properties versionProps = new Properties()
+    def versionMajor = 1
+    def versionMinor =  1
+    def versionBuild = 1
+    def versionNumber = 1
+    def versionPropsFile = file('version.properties')
+
+    gradle.taskGraph.whenReady {taskGraph ->
+        if (taskGraph.hasTask("assembleRelease")) {
+            versionProps['RELEASED'] = 'true';
+            versionProps.store(versionPropsFile.newWriter(), null)
+        }
+    }
+
+    if (versionPropsFile.canRead()) {
+        versionProps.load(new FileInputStream(versionPropsFile))
+        def released = (versionProps['RELEASED'] != null) && (versionProps['RELEASED'].asBoolean())
+        def increment = 0
+        if (released) {
+            increment = 1
+            versionProps.remove('RELEASED');
+        }
+        versionMinor =  versionProps['VERSION_MINOR'].toInteger() + increment
+        versionBuild =  versionProps['VERSION_BUILD'].toInteger() + 1
+        versionNumber = versionProps['VERSION_NUMBER'].toInteger() + increment
+    }
+
+    versionProps['VERSION_MINOR'] = versionMinor.toString()
+    versionProps['VERSION_BUILD'] = versionBuild.toString()
+    versionProps['VERSION_NUMBER'] = versionNumber.toString()
+
+    versionProps.store(versionPropsFile.newWriter(), null)
+
+    defaultConfig {
+        versionCode versionNumber
+        versionName "${versionMajor}.${versionMinor}.${versionBuild}"
+        minSdkVersion 14
+        targetSdkVersion 27
+        applicationId "com.cresittel.android.gameinfo"
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            if (!variant.buildType.name.equals('debug')) {
+                outputFileName = "${applicationId}-${variant.versionName}.apk"
+            }
+        }
+    }
+
+	sourceSets {
+		main {
+            manifest.srcFile 'src/AndroidManifest.xml'
+            java.srcDirs = ['src/main']
+            resources.srcDirs = ['src/main']
+            aidl.srcDirs = ['src/main']
+            renderscript.srcDirs = ['src/main']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+
+	}
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
+    }
+
+}

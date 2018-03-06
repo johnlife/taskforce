@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Flu Track!!!</string>
+    <string name="hello">Hello</string>
+    <string name="accessToken">pk.eyJ1IjoiZW5jb3JlMzY1IiwiYSI6ImNqZTZ4c2JzMTA1NXAycHFuM2xidjZ6eWcifQ.76qtIzZrxWDMi7r70Mkq9w</string>
+
+</resources>
