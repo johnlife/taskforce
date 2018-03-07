@@ -2,22 +2,21 @@ package com.cresittel.android.gameinfo.service;
 
 import android.util.Log;
 
-import org.greenrobot.eventbus.EventBus;
-
-import okhttp3.OkHttpClient;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
-import ru.johnlife.lifetools.ClassConstantsProvider;
-import ru.johnlife.lifetools.service.BaseBackgroundService;
 import com.cresittel.android.gameinfo.Constants;
 import com.cresittel.android.gameinfo.data.FluTrack;
 import com.cresittel.android.gameinfo.events.FluTrackListEvent;
 import com.mapbox.mapboxsdk.Mapbox;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import ru.johnlife.lifetools.ClassConstantsProvider;
+import ru.johnlife.lifetools.service.BaseBackgroundService;
+import ru.johnlife.lifetools.service.RestService;
 
 /**
  * Created by yanyu on 5/16/2016.
@@ -28,22 +27,19 @@ public class BackgroundService extends BaseBackgroundService {
 
     public interface Requester extends BaseBackgroundService.Requester<BackgroundService> {}
     private static BackgroundService instance = null;
-    private RestSample restService;
+    private RestSample restService = RestService.create(Constants.REST_BASE, RestSample.class);
 
     public static BackgroundService getInstance() {
         return instance;
     }
 
-        @Override
+    @Override
     public void onCreate() {
-
         super.onCreate();
         instance = this;
-        initializeRestService();
+        Mapbox.getInstance(this,"pk.eyJ1IjoiZW5jb3JlMzY1IiwiYSI6ImNqZTZ4c2JzMTA1NXAycHFuM2xidjZ6eWcifQ.76qtIzZrxWDMi7r70Mkq9w");
         requestFlu("feverANDcoughORfever");
     }
-
-
 
     @Override
     protected ClassConstantsProvider getClassConstants() {
@@ -53,22 +49,6 @@ public class BackgroundService extends BaseBackgroundService {
     @Override
     public boolean isLoggedIn() {
         return true;
-    }
-
-    private void initializeRestService() {
-
-        OkHttpClient client = new OkHttpClient.Builder()
-            .followSslRedirects(true)
-            .followRedirects(true)
-            .build();
-        restService = new Retrofit.Builder()
-            .baseUrl(Constants.REST_BASE)
-            .client(client)
-            .addConverterFactory(JacksonConverterFactory.create())
-            .build()
-            .create(RestSample.class);
-       Mapbox.getInstance(this,"pk.eyJ1IjoiZW5jb3JlMzY1IiwiYSI6ImNqZTZ4c2JzMTA1NXAycHFuM2xidjZ6eWcifQ.76qtIzZrxWDMi7r70Mkq9w");
-
     }
 
     //------------------------------------------------------------------------------------------------

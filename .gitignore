@@ -5,3 +5,5 @@ libraries/*
 !libraries/Lifetools Reporter*
 libraries/Lifetools Reporter/web
 !libraries/Lifetools ORM*
+!libraries/Lifetools Rest*
+!libraries/Lifetools JSON*

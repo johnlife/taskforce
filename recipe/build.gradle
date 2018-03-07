@@ -23,9 +23,8 @@ repositories {
 
 dependencies {
     implementation project(':..:libraries:LifeToolsNew')
+    implementation project(':..:libraries:LifeTools Rest')
     implementation 'com.squareup.picasso:picasso:2.5.2'
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-jackson:2.3.0'
     implementation 'org.greenrobot:eventbus:3.0.0'
 }
 

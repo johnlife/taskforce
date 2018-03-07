@@ -5,14 +5,10 @@ repositories {
 }
 
 dependencies {
-    implementation fileTree(include: '*.jar', dir: 'libs')
     implementation project(path: ':..:libraries:LifeToolsNew')
-    implementation project(path: ':..:libraries:LifeTools Reporter')
+    api project(path: ':..:libraries:LifeTools JSON')
     api 'com.j256.ormlite:ormlite-core:4.48'
     api 'com.j256.ormlite:ormlite-android:4.48'
-    api 'com.fasterxml.jackson.core:jackson-core:2.9.1'
-    api 'com.fasterxml.jackson.core:jackson-annotations:2.9.1'
-    api 'com.fasterxml.jackson.core:jackson-databind:2.9.1'
 }
 
 android {

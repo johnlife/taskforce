@@ -1,4 +1,4 @@
 include '..:libraries:LifeTools Reporter'
 include '..:libraries:LifeToolsNew'
-//include '..:libraries:LifeTools Rest'
-//include '..:libraries:LifeTools Firebase'
+include '..:libraries:LifeTools Rest'
+include '..:libraries:LifeTools JSON'
