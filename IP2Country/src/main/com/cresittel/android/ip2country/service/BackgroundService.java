@@ -52,10 +52,12 @@ public class BackgroundService extends BaseBackgroundService {
             public void onResponse(Call<CountryInfo> call, Response<CountryInfo> response) {
                 if (response.isSuccessful()) {
                     CountryInfo data = response.body();
-                    if ("success".equals(data.getStatus())) {
-                        postData(data);
-                    } else {
+                    CountryInfo.SubCountryInfo subdata = data.getData();
+                    if(null == subdata.getContinent_name() && null == subdata.getCountry_name() && null == subdata.getSubdivision_1_name() && null == subdata.getCity_name()){
                         postError();
+                    }
+                    else{
+                        postData(data);
                     }
                 } else {
                     postError();

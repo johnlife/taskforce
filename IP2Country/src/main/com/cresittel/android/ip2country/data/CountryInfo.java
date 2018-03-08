@@ -20,10 +20,6 @@ public class CountryInfo extends JsonData {
         return data;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
     public class SubCountryInfo extends JsonData
     {
         private String ipv4; // "8.8.8.8",
@@ -35,21 +31,20 @@ public class CountryInfo extends JsonData {
         private String latitude; // "37.38600",
         private String longitude; // "-122.08380"
 
-        private String Unkwn = "Unknown";
         public String getContinent_name() {
-            return (continent_name != null)? continent_name:Unkwn;
+            return continent_name;
         }
 
         public String getCountry_name() {
-            return (country_name != null)? country_name:Unkwn;
+            return country_name;
         }
 
         public String getSubdivision_1_name() {
-            return (subdivision_1_name != null)? subdivision_1_name:Unkwn;
+            return subdivision_1_name;
         }
 
         public String getCity_name() {
-            return (city_name != null)? city_name:Unkwn;
+            return city_name;
         }
 
         public String getLatitude() {

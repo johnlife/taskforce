@@ -13,7 +13,10 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import ru.johnlife.lifetools.fragment.BaseAbstractFragment;
+import ru.johnlife.lifetools.tools.StyledStringBuilder;
+
 import com.cresittel.android.ip2country.R;
+import com.cresittel.android.ip2country.data.CountryInfo;
 import com.cresittel.android.ip2country.events.CountryInfoEvent;
 import com.cresittel.android.ip2country.events.InvalidRequestEvent;
 import com.cresittel.android.ip2country.service.BackgroundService;
@@ -25,6 +28,8 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+
+import java.lang.reflect.Type;
 
 /**
  * Created by Yan Yurkin
@@ -86,13 +91,27 @@ public class CountryInfoFragment extends BaseAbstractFragment{
         });
     }
 
+    private String normalize(String source) {
+        if (null == source) {
+            return this.getContext().getString(R.string.unknown);
+        } else {
+            return source;
+        }
+    }
+
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onRequestCountryInfo(CountryInfoEvent event) {
-
-        tvContinentName.setText(event.getData().getData().getContinent_name());
-        tvCountryName.setText(event.getData().getData().getCountry_name());
-        tvSubdivisonName.setText(event.getData().getData().getSubdivision_1_name());
-        tvCityName.setText(event.getData().getData().getCity_name());
+        StyledStringBuilder styledStringBuilder = new StyledStringBuilder(this.getContext());
+        CountryInfo.SubCountryInfo data = event.getData().getData();
+        String info[] = {data.getContinent_name(), data.getCountry_name(), data.getSubdivision_1_name(), data.getCity_name()};
+        TextView text[] = {tvContinentName, tvCountryName, tvSubdivisonName, tvCityName};
+        int id[] = {R.string.continent_name, R.string.country_name, R.string.subdivision_name, R.string.city_name};
+        for (int i = 0; i < text.length; i++) {
+            styledStringBuilder.append(id[i], R.style.TitleText);
+            styledStringBuilder.append(" " + normalize(info[i]), R.style.ImportantText);
+            text[i].setText(styledStringBuilder.build());
+            styledStringBuilder.clear();
+        }
         mapView.getMapAsync(new OnMapReadyCallback() {
             double Lat = Double.parseDouble(event.getData().getData().getLatitude());
             double Long = Double.parseDouble(event.getData().getData().getLongitude());
@@ -123,12 +142,11 @@ public class CountryInfoFragment extends BaseAbstractFragment{
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(MapboxMap mapboxMap) {
-                mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                        new LatLng(0,0), 0));
-                for (Marker marker : mapboxMap.getMarkers()
-                        ) {
+                for (Marker marker : mapboxMap.getMarkers()) {
                     mapboxMap.removeMarker(marker);
                 }
+                mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                        new LatLng(0,0), 0));
             }
         });
         progress.setVisibility(View.GONE);
