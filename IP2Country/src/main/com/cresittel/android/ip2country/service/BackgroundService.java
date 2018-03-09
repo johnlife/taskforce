@@ -47,16 +47,14 @@ public class BackgroundService extends BaseBackgroundService {
     //TODO: your logic here
 
     public void requestCountryName(String ipaddress) {
-        restService.getCountryInfo(Constants.REST_BASE  + ipaddress).enqueue(new Callback<CountryInfo>() {
+        restService.getCountryInfo(Constants.REST_BASE  + ipaddress).enqueue(new Callback<CountryInfo.Response>() {
             @Override
-            public void onResponse(Call<CountryInfo> call, Response<CountryInfo> response) {
+            public void onResponse(Call<CountryInfo.Response> call, Response<CountryInfo.Response> response) {
                 if (response.isSuccessful()) {
-                    CountryInfo data = response.body();
-                    CountryInfo.SubCountryInfo subdata = data.getData();
-                    if(null == subdata.getContinent_name() && null == subdata.getCountry_name() && null == subdata.getSubdivision_1_name() && null == subdata.getCity_name()){
+                    CountryInfo data = response.body().getData();
+                    if (data.isEmpty()){
                         postError();
-                    }
-                    else{
+                    } else {
                         postData(data);
                     }
                 } else {
@@ -65,7 +63,7 @@ public class BackgroundService extends BaseBackgroundService {
             }
 
             @Override
-            public void onFailure(Call<CountryInfo> call, Throwable t) {
+            public void onFailure(Call<CountryInfo.Response> call, Throwable t) {
                 Log.e("REST", "Error: " + t);
                 postError();
             }

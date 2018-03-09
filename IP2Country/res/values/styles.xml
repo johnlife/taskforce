@@ -9,11 +9,11 @@
         <item name="android:colorBackground">@android:color/background_light</item>
     </style>
 
-    <style name="ImportantText">
+    <style name="ImportantText" parent="TextAppearance.AppCompat.Title">
         <item name="android:textColor">@color/dark_text</item>
     </style>
 
-    <style name="TitleText">
+    <style name="LabelText" parent="TextAppearance.AppCompat.Title">
         <item name="android:textColor">@color/grey_text</item>
     </style>
 

@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,7 +55,7 @@
             android:layout_marginLeft="@dimen/padding"
             android:layout_marginTop="@dimen/inset_margin"
             android:text="@string/continent_name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textSize="20sp" />
 
         <TextView
@@ -82,19 +88,20 @@
             android:text="@string/city_name"
             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-    <com.mapbox.mapboxsdk.maps.MapView
-        android:layout_marginTop="30dp"
-        android:id="@+id/mapView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        mapbox:mapbox_styleUrl="mapbox://styles/mapbox/streets-v10"
-        mapbox:mapbox_uiDoubleTapGestures="false"
-        mapbox:mapbox_uiRotateGestures="false"
-        mapbox:mapbox_uiScrollGestures="false"
-        mapbox:mapbox_uiTiltGestures="false"
-        mapbox:mapbox_uiZoomControls="false"
-        mapbox:mapbox_uiZoomGestures="false"
+        <com.mapbox.mapboxsdk.maps.MapView
+            android:layout_marginTop="30dp"
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            mapbox:mapbox_styleUrl="mapbox://styles/mapbox/streets-v10"
+            mapbox:mapbox_uiDoubleTapGestures="false"
+            mapbox:mapbox_uiRotateGestures="false"
+            mapbox:mapbox_uiScrollGestures="false"
+            mapbox:mapbox_uiTiltGestures="false"
+            mapbox:mapbox_uiZoomControls="false"
+            mapbox:mapbox_uiZoomGestures="false"
 
-        />
+            />
 
-</LinearLayout>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

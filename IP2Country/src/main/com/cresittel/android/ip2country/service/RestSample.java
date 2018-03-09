@@ -14,5 +14,5 @@ import com.cresittel.android.ip2country.data.CountryInfo;
 
 public interface RestSample {
     @GET()
-    Call<CountryInfo> getCountryInfo(@Url() String url);
+    Call<CountryInfo.Response> getCountryInfo(@Url() String url);
 }

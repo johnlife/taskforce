@@ -1,10 +1,5 @@
 package com.cresittel.android.ip2country.data;
 
-import android.net.wifi.aware.SubscribeConfig;
-
-import com.cresittel.android.ip2country.R;
-
-import ru.johnlife.lifetools.data.AbstractData;
 import ru.johnlife.lifetools.data.JsonData;
 
 /**
@@ -13,51 +8,60 @@ import ru.johnlife.lifetools.data.JsonData;
  */
 
 public class CountryInfo extends JsonData {
-    private String status;
-    private SubCountryInfo data;
+    public static final class Response extends JsonData{
+        private String status;
+        private CountryInfo data;
 
-    public SubCountryInfo getData() {
-        return data;
+        public CountryInfo getData() {
+            return data;
+        }
     }
 
-    public class SubCountryInfo extends JsonData
-    {
-        private String ipv4; // "8.8.8.8",
-        private String continent_name; // "North America",
-        private String country_name; // "United States",
-        private String subdivision_1_name; // "California",
-        private String subdivision_2_name; // ""
-        private String city_name; // "Mountain View",
-        private String latitude; // "37.38600",
-        private String longitude; // "-122.08380"
 
-        public String getContinent_name() {
-            return continent_name;
-        }
+    private String ipv4; // "8.8.8.8",
+    private String continent_name; // "North America",
+    private String country_name; // "United States",
+    private String subdivision_1_name; // "California",
+    private String subdivision_2_name; // ""
+    private String city_name; // "Mountain View",
+    private String latitude; // "37.38600",
+    private String longitude; // "-122.08380"
 
-        public String getCountry_name() {
-            return country_name;
-        }
+    public String getContinentName() {
+        return continent_name;
+    }
 
-        public String getSubdivision_1_name() {
-            return subdivision_1_name;
-        }
+    public String getCountryName() {
+        return country_name;
+    }
 
-        public String getCity_name() {
-            return city_name;
-        }
+    public String getSubdivisionName() {
+        return subdivision_1_name;
+    }
 
-        public String getLatitude() {
-            return latitude;
-        }
+    public String getCityName() {
+        return city_name;
+    }
 
-        public String getLongitude() {
-            return longitude;
-        }
+    public String getLatitude() {
+        return latitude;
+    }
 
-        public String getIpv4() {
-            return  ipv4;
-        }
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public String getIpv4() {
+        return  ipv4;
+    }
+
+    public boolean isEmpty() {
+        return
+            null == getContinentName() &&
+            null == getCountryName() &&
+            null == getSubdivisionName() &&
+            null == getCityName();
+
     }
 }
 

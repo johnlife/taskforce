@@ -1,7 +1,9 @@
 package com.cresittel.android.ip2country.fragment;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.design.widget.AppBarLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,8 +30,6 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-
-import java.lang.reflect.Type;
 
 /**
  * Created by Yan Yurkin
@@ -91,30 +91,29 @@ public class CountryInfoFragment extends BaseAbstractFragment{
         });
     }
 
-    private String normalize(String source) {
-        if (null == source) {
-            return this.getContext().getString(R.string.unknown);
-        } else {
-            return source;
-        }
+    private static String normalize(Context context, String value) {
+        return (null == value) ? context.getString(R.string.unknown) : value;
+    }
+
+    private static void setText(TextView field, @StringRes int label, String value) {
+        Context context = field.getContext();
+        StyledStringBuilder b = new StyledStringBuilder(context);
+        b   .append(label, R.style.LabelText)
+            .append(" " + normalize(context, value), R.style.ImportantText);
+        field.setText(b.build());
+
     }
 
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onRequestCountryInfo(CountryInfoEvent event) {
-        StyledStringBuilder styledStringBuilder = new StyledStringBuilder(this.getContext());
-        CountryInfo.SubCountryInfo data = event.getData().getData();
-        String info[] = {data.getContinent_name(), data.getCountry_name(), data.getSubdivision_1_name(), data.getCity_name()};
-        TextView text[] = {tvContinentName, tvCountryName, tvSubdivisonName, tvCityName};
-        int id[] = {R.string.continent_name, R.string.country_name, R.string.subdivision_name, R.string.city_name};
-        for (int i = 0; i < text.length; i++) {
-            styledStringBuilder.append(id[i], R.style.TitleText);
-            styledStringBuilder.append(" " + normalize(info[i]), R.style.ImportantText);
-            text[i].setText(styledStringBuilder.build());
-            styledStringBuilder.clear();
-        }
+        CountryInfo data = event.getData();
+        setText(tvContinentName, R.string.continent_name, data.getContinentName());
+        setText(tvCountryName, R.string.country_name, data.getCountryName());
+        setText(tvSubdivisonName, R.string.subdivision_name, data.getSubdivisionName());
+        setText(tvCityName, R.string.city_name, data.getCityName());
         mapView.getMapAsync(new OnMapReadyCallback() {
-            double Lat = Double.parseDouble(event.getData().getData().getLatitude());
-            double Long = Double.parseDouble(event.getData().getData().getLongitude());
+            double Lat = Double.parseDouble(data.getLatitude());
+            double Long = Double.parseDouble(data.getLongitude());
             @Override
             public void onMapReady(MapboxMap mapboxMap) {
                 for (Marker marker : mapboxMap.getMarkers()) {
@@ -125,7 +124,7 @@ public class CountryInfoFragment extends BaseAbstractFragment{
                 mapboxMap.addMarker(new MarkerOptions()
                         .position(new LatLng(Lat, Long))
                         .title(tvCountryName.getText().toString())
-                        .snippet(event.getData().getData().getIpv4()));
+                        .snippet(data.getIpv4()));
             }
         });
         progress.setVisibility(View.GONE);
