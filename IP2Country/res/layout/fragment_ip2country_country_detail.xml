@@ -5,10 +5,12 @@
 
     <ImageView
         android:id="@+id/flag"
-        android:layout_width="290dp"
-        android:layout_height="155dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:background="@drawable/back_rect"
+        android:elevation="8dp" />
 
     <TextView
         android:id="@+id/countryName"
@@ -52,5 +54,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:layout_marginLeft="@dimen/padding"
+        android:layout_marginRight="@dimen/padding"
         android:layout_marginTop="@dimen/inset_margin"/>
 </LinearLayout>

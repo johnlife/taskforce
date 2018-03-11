@@ -1,5 +1,8 @@
 package com.cresittel.android.ip2country.data;
 
+import java.text.DecimalFormat;
+import java.util.Locale;
+
 import ru.johnlife.lifetools.data.JsonData;
 
 /**
@@ -8,22 +11,23 @@ import ru.johnlife.lifetools.data.JsonData;
 
 public class CountryDetail extends JsonData {
     private String capital;
-    private String population;
-    private String area;
+    private long population;
+    private long area;
     private String borders[];
     private String flag;
     private String pngFlag;
 
+    private static DecimalFormat myFormatter = new DecimalFormat("###,###,###,###");
     public String getCapital() {
         return capital;
     }
 
     public String getPopulation() {
-        return population;
+        return myFormatter.format(population);
     }
 
     public String getArea() {
-        return area;
+        return myFormatter.format(area);
     }
 
     public String[] getBorders() {
@@ -35,14 +39,14 @@ public class CountryDetail extends JsonData {
     }
 
     public String getPngFlag(){
-        return "https://process.filestackapi.com/A4oUzLoieQuG6FLSnHwBfz/output=format:png/" + flag; // Return inline image
+        return "https://process.filestackapi.com/A4oUzLoieQuG6FLSnHwBfz/output=format:png/resize=width:625/" + flag; // Return inline image
     }
 
     public  String getOneLineBorder(){
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < getBorders().length; i++) {
-            stringBuilder.append(getBorders()[i]);
-            if(i != getBorders().length-1){
+        for (int i = 0; i < borders.length; i++) {
+            stringBuilder.append(borders[i]);
+            if(i != borders.length-1){
                 stringBuilder.append(", ");
             }
         }
