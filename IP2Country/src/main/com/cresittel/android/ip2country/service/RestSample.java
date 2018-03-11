@@ -4,7 +4,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Url;
 
-import com.cresittel.android.ip2country.Constants;
 import com.cresittel.android.ip2country.data.CountryInfo;
 
 /**
@@ -14,5 +13,5 @@ import com.cresittel.android.ip2country.data.CountryInfo;
 
 public interface RestSample {
     @GET()
-    Call<CountryInfo.Response> getCountryInfo(@Url() String url);
+    Call<CountryInfo> getCountryInfo(@Url() String url);
 }

@@ -3,9 +3,14 @@
     <string name="app_name">IP2Country</string>
     <string name="continent_name">Continent Name: </string>
     <string name="country_name">Country Name: </string>
-    <string name="subdivision_name">Subdivision Name: </string>
+    <string name="state">State: </string>
     <string name="city_name">City Name: </string>
     <string name="search">Search</string>
     <string name="default_search">114.134.184.52</string>
     <string name="unknown">Unknown</string>
+    <string name="alpha3code">Alpha Code: </string>
+    <string name="capital">Capital City: </string>
+    <string name="population">Population: </string>
+    <string name="area">Area: </string>
+    <string name="border">Border: </string>
 </resources>

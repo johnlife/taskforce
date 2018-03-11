@@ -54,7 +54,6 @@
             android:layout_gravity="top"
             android:layout_marginLeft="@dimen/padding"
             android:layout_marginTop="@dimen/inset_margin"
-            android:text="@string/continent_name"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textSize="20sp" />
 
@@ -65,7 +64,6 @@
             android:layout_gravity="top"
             android:layout_marginLeft="@dimen/padding"
             android:layout_marginTop="@dimen/inset_margin"
-            android:text="@string/country_name"
             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
         <TextView
@@ -75,7 +73,6 @@
             android:layout_gravity="top"
             android:layout_marginLeft="@dimen/padding"
             android:layout_marginTop="@dimen/inset_margin"
-            android:text="@string/subdivision_name"
             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
         <TextView
@@ -85,7 +82,6 @@
             android:layout_gravity="top"
             android:layout_marginLeft="@dimen/padding"
             android:layout_marginTop="@dimen/inset_margin"
-            android:text="@string/city_name"
             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
         <com.mapbox.mapboxsdk.maps.MapView

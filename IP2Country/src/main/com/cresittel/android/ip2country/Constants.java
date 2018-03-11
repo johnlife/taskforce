@@ -19,6 +19,9 @@ public interface Constants {
             return BackgroundService.class;
         }
     };
-    String REST_BASE = "https://ipvigilante.com/json/";
+    String REST_BASE = "https://usercountry.com/v1.0/json/";
+    String COUNTRY_DETAIL_REST_BASE = "https://restcountries.eu/rest/v2/alpha/";
+    String COUNTRY_CODE = "codes";
+    String COUNTRY_NAME = "name";
     //String SAMPLE_METHOD = "getSample";
 }

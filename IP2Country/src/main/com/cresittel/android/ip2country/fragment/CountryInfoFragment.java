@@ -17,6 +17,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import ru.johnlife.lifetools.fragment.BaseAbstractFragment;
 import ru.johnlife.lifetools.tools.StyledStringBuilder;
 
+import com.cresittel.android.ip2country.Constants;
 import com.cresittel.android.ip2country.R;
 import com.cresittel.android.ip2country.data.CountryInfo;
 import com.cresittel.android.ip2country.events.CountryInfoEvent;
@@ -39,7 +40,7 @@ public class CountryInfoFragment extends BaseAbstractFragment{
     private MapView mapView;
     private TextView tvContinentName;
     private TextView tvCountryName;
-    private TextView tvSubdivisonName;
+    private TextView tvState;
     private TextView tvCityName;
     private TextView tvIpAddress;
     private TextView submit;
@@ -54,6 +55,8 @@ public class CountryInfoFragment extends BaseAbstractFragment{
         return defaultToolbar();
     }
 
+    private String default_ipaddress = "114.134.184.117";
+    private String alpha3code;
     @Override
     protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ip2country, container, false);
@@ -63,7 +66,15 @@ public class CountryInfoFragment extends BaseAbstractFragment{
         mapView.onCreate(savedInstanceState);
         tvContinentName = view.findViewById(R.id.continentName);
         tvCountryName = view.findViewById(R.id.countryName);
-        tvSubdivisonName = view.findViewById(R.id.subdivisionName);
+        tvCountryName.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                changeFragment(new CountryDetailFragment()
+                        .addParam(Constants.COUNTRY_CODE, alpha3code)
+                        .addParam(Constants.COUNTRY_NAME, tvCountryName.getText().toString().substring(14)), true);
+            }
+        });
+        tvState = view.findViewById(R.id.subdivisionName);
         tvCityName = view.findViewById(R.id.cityName);
         tvIpAddress = view.findViewById(R.id.ipaddress);
         progress = view.findViewById(R.id.progress);
@@ -71,22 +82,27 @@ public class CountryInfoFragment extends BaseAbstractFragment{
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestCountryName(tvIpAddress.getText().toString());
+                requestCountryInfo(tvIpAddress.getText().toString());
             }
         });
-        String default_ipaddress = getContext().getString(R.string.default_search);
         tvIpAddress.setText(default_ipaddress);
-        requestCountryName(default_ipaddress);
+        requestCountryInfo(default_ipaddress);
         return view;
     }
 
-    private void requestCountryName(String search) {
+    @Override
+    public void onDestroyView() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroyView();
+    }
+
+    private void requestCountryInfo(String search) {
         requestService(new BackgroundService.Requester() {
             @Override
             public void requestService(BackgroundService service) {
                 progress.setVisibility(View.VISIBLE);
                 submit.setVisibility(View.GONE);
-                service.requestCountryName(search);
+                service.requestCountryInfo(search);
             }
         });
     }
@@ -95,25 +111,27 @@ public class CountryInfoFragment extends BaseAbstractFragment{
         return (null == value) ? context.getString(R.string.unknown) : value;
     }
 
-    private static void setText(TextView field, @StringRes int label, String value) {
+    public static void setText(TextView field, @StringRes int label, String value) {
         Context context = field.getContext();
         StyledStringBuilder b = new StyledStringBuilder(context);
         b   .append(label, R.style.LabelText)
             .append(" " + normalize(context, value), R.style.ImportantText);
         field.setText(b.build());
-
     }
 
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onRequestCountryInfo(CountryInfoEvent event) {
         CountryInfo data = event.getData();
-        setText(tvContinentName, R.string.continent_name, data.getContinentName());
-        setText(tvCountryName, R.string.country_name, data.getCountryName());
-        setText(tvSubdivisonName, R.string.subdivision_name, data.getSubdivisionName());
-        setText(tvCityName, R.string.city_name, data.getCityName());
+        CountryInfo.Region region = data.getRegion();
+        setText(tvContinentName, R.string.continent_name, data.getContinent().getName());
+        setText(tvCountryName, R.string.country_name, data.getCountry().getName());
+        setText(tvState, R.string.state, region.getState());
+        setText(tvCityName, R.string.city_name, region.getCity());
+        alpha3code = data.getCountry().getAlpha3();
+        default_ipaddress = data.getIp();
         mapView.getMapAsync(new OnMapReadyCallback() {
-            double Lat = Double.parseDouble(data.getLatitude());
-            double Long = Double.parseDouble(data.getLongitude());
+            double Lat = region.getLatitude();
+            double Long = region.getLongitude();
             @Override
             public void onMapReady(MapboxMap mapboxMap) {
                 for (Marker marker : mapboxMap.getMarkers()) {
@@ -124,20 +142,26 @@ public class CountryInfoFragment extends BaseAbstractFragment{
                 mapboxMap.addMarker(new MarkerOptions()
                         .position(new LatLng(Lat, Long))
                         .title(tvCountryName.getText().toString())
-                        .snippet(data.getIpv4()));
+                        .snippet(data.getIp())
+                        );
+                /*if(!mapboxMap.getMarkers().get(0).isInfoWindowShown()){
+                    mapboxMap.getMarkers().get(0).showInfoWindow(mapboxMap, mapView);
+                }*/
             }
         });
         progress.setVisibility(View.GONE);
         submit.setVisibility(View.VISIBLE);
     }
 
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onInvalidRequest(InvalidRequestEvent event)
     {
         tvContinentName.setText("Invalid Request or No Internet connection");
         tvCountryName.setText("");
-        tvSubdivisonName.setText("");
+        tvState.setText("");
         tvCityName.setText("");
+        alpha3code = "";
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(MapboxMap mapboxMap) {
