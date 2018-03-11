@@ -43,7 +43,7 @@ public class FluTrackInfoFragment extends BaseAbstractFragment implements Consta
     protected AppBarLayout getToolbar(LayoutInflater inflater, ViewGroup container) {
         return defaultToolbar();
     }
-    ;
+
     private Double lat;
     private Double lng;
     private MapView mapView;
