@@ -3,6 +3,7 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="@style/Theme.Design.Light.NoActionBar">
         <item name="android:windowBackground">@android:color/background_light</item>
+        <!--<item name="android:windowBackground">@android:color/highlighted_text_dark</item>-->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
